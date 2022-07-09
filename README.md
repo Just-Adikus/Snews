@@ -1,6 +1,5 @@
 # rss_news
-
-A new Flutter project.
+SNews is a simple rss aggregator that works through parsing
 
 ## Getting Started
 
