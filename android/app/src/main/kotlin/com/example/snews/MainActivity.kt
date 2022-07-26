@@ -1,4 +1,4 @@
-package com.example.rss_news
+package com.example.snews
 
 import io.flutter.embedding.android.FlutterActivity
 

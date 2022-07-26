@@ -2,12 +2,16 @@ import 'dart:developer';
 import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:rss_news/common/fetch_http_news.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:rss_news/constants.dart';
+import 'package:rss_news/utils/constants.dart';
+
+import '../provider/theme_provider.dart';
+import '../widget/theme_button.dart';
 
 class FirstScreenRSS extends StatefulWidget {
   @override
@@ -15,27 +19,43 @@ class FirstScreenRSS extends StatefulWidget {
 }
 
 class _HomeScreenRSSState extends State {
-  bool _darkTheme = false;
   List _NewsList = [];
+
   @override
   Widget build(BuildContext context) {
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+        ? 'DarkTheme'
+        : 'LightTheme';
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.themeMode,
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor:
+              Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+                  ? Colors.grey.shade900
+                  : Colors.blue,
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text('SNEWS Политика'),
+          title: Text('SNEWS Экономика'),
+          actions: [
+            ChangeThemeButtonWidget(),
+          ],
         ),
         body: FutureBuilder(
           future: _getHttpNews(),
           builder: (context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
               );
             } else {
               return Container(
@@ -77,9 +97,10 @@ class _HomeScreenRSSState extends State {
                                   ),
                                 ),
                                 FloatingActionButton.extended(
+                                  backgroundColor: Colors.blue,
                                   heroTag: null,
                                   onPressed: () =>
-                                      openFeed(_NewsList[index].link),
+                                  openFeed(_NewsList[index].link),
                                   label: Text('Читать'),
                                   icon: Icon(Icons.arrow_forward),
                                 ),
@@ -96,8 +117,6 @@ class _HomeScreenRSSState extends State {
       ),
     );
   }
-
-
 
   _getHttpNews() async {
     try {

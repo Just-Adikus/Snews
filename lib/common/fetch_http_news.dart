@@ -10,6 +10,6 @@ fetchHttpNews(url) {
 
 parseDescription(description) {
   description = parse(description);
-  var txtDescription = parse(description.body.text).documentElement!.text;
+  var txtDescription = parse(description.body.text).documentElement!.text ;
   return txtDescription;
 }
