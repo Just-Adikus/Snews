@@ -9,6 +9,9 @@ import 'package:rss_news/screens/fourth_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rss_news/widget/theme_button.dart';
 
+import 'screens/home_screen.dart';
+import 'widget/appbar_icon.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
 
 
 class MyDrawerApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,14 +56,19 @@ class MyDrawerApp extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
+             child: Center(
               child: Text("SNEWS",
                   style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 35.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              decoration: BoxDecoration(color: Colors.blue),
+                      color: Colors.white
+            ),
+            )
+            ),
+            decoration: BoxDecoration(color: Colors.blue),
             ),
             ListTile(
+              
               title: Text("Политика"),
               onTap: () {
                 Navigator.push(context,
@@ -108,6 +117,7 @@ class MyDrawerApp extends StatelessWidget {
                 : Colors.blue,
         title: Text("SNEWS Новости"),
         actions: [
+          ChangeThemeIconWidget(),
           ChangeThemeButtonWidget(),
         ],
       ),
@@ -135,11 +145,5 @@ class MyDrawerApp extends StatelessWidget {
   Future<String> getVersionNumber() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
-
-    // Other data you can get:
-    //
-    // 	String appName = packageInfo.appName;
-    // 	String packageName = packageInfo.packageName;
-    //	String buildNumber = packageInfo.buildNumber;
   }
 }

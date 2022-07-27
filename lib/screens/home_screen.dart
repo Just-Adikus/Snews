@@ -11,19 +11,15 @@ import '../provider/theme_provider.dart';
 import '../widget/appbar_icon.dart';
 import '../widget/theme_button.dart';
 
-class FirstScreenRSS extends StatefulWidget {
+class HomeScreenRSS extends StatefulWidget {
   @override
   _HomeScreenRSSState createState() => _HomeScreenRSSState();
 }
 
 class _HomeScreenRSSState extends State {
   List _NewsList = [];
-
   @override
   Widget build(BuildContext context) {
-    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
-        ? 'DarkTheme'
-        : 'LightTheme';
     final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,

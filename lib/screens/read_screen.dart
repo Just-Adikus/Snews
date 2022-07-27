@@ -1,77 +1,50 @@
-// import 'package:flutter/material.dart';
-// import 'package:html/parser.dart';
-// import 'package:rss_news/common/fetch_http_news.dart';
-// import 'package:rss_news/model/news_model.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-// class ReadScreen extends StatefulWidget {
-//   final urlHab;
+import '../provider/theme_provider.dart';
+import '../widget/appbar_icon.dart';
+import '../widget/theme_button.dart';
 
-//   ReadScreen({@required this.urlHab});
+class ReadScreen extends StatefulWidget {
+  final urlNews;
 
-//   @override
-//   _ReadScreenState createState() => _ReadScreenState();
-// }
+  ReadScreen({@required this.urlNews});
 
-// class _ReadScreenState extends State<ReadScreen> {
-//   var _habModel = News();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text('Habr RSS'),
-//           leading: IconButton(
-//             icon: Icon(Icons.arrow_back_ios),
-//             onPressed: () => Navigator.pop(context),
-//           ),
-//         ),
-//         body: _getHab());
-//   }
-
-//   _getHab() {
-//     return FutureBuilder(
-//       future: _getHttpHab(),
-//       builder: (context, AsyncSnapshot snapshot) {
-//         if (!snapshot.hasData) {
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         } else {
-//           return ListView(
-//             padding: EdgeInsets.only(
-//                 left: 10.0, right: 10.0, top: 10.0, bottom: 40.0),
-//             children: [
-//               Text(
-//                 '${_habModel.title}',
-//                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-//               ),
-//               SizedBox(
-//                 height: 20.0,
-//               ),
-//               Text(
-//                 '${_habModel.body}',
-//                 style: TextStyle(fontSize: 18.0, color: Colors.grey),
-//               ),
-//             ],
-//           );
-//         }
-//       },
-//     );
-//   }
-
-//   _getHttpHab() async {
-//     var response = await fetchHttpNews(widget.urlHab);
-//     var _hab = parse(response.body);
-//     _habModel.title = _hab
-//         .getElementsByClassName('post__title post__title_full')[0]
-//         .children[0]
-//         .text;
-//     _habModel.body = _hab
-//         .getElementsByClassName('post__body post__body_full')[0]
-//         .children[0]
-//         .text;
-//     _habModel.news_url = widget.urlHab;
-
-//     return _habModel;
-//   }
-// }
+  @override
+  _ReadScreenState createState() => _ReadScreenState();
+}
+class _ReadScreenState extends State<ReadScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+     return MaterialApp (
+      debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.themeMode,
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
+      home:Scaffold(
+        appBar: AppBar(
+          backgroundColor:
+              Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+                  ? Colors.grey.shade900
+                  : Colors.blue,
+          centerTitle: true,
+          title: Text('SNEWS Новости'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
+          actions: [
+            ChangeThemeIconWidget(),
+            ChangeThemeButtonWidget(),
+          ],
+        ),
+        body: WebView(
+          initialUrl: '${widget.urlNews}',
+          javascriptMode: JavascriptMode.unrestricted,
+        )
+        )
+        );
+  }
+  }

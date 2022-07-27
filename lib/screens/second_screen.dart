@@ -1,15 +1,13 @@
-import 'dart:developer';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rss_news/screens/read_screen.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:rss_news/common/fetch_http_news.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:rss_news/utils/constants.dart';
 
 import '../provider/theme_provider.dart';
+import '../widget/appbar_icon.dart';
 import '../widget/theme_button.dart';
 
 class SecondScreenRSS extends StatefulWidget {
@@ -44,6 +42,7 @@ class _HomeScreenRSSState extends State {
           ),
           title: Text('SNEWS Экономика'),
           actions: [
+             ChangeThemeIconWidget(),
             ChangeThemeButtonWidget(),
           ],
         ),
@@ -99,7 +98,10 @@ class _HomeScreenRSSState extends State {
                                   backgroundColor: Colors.blue,
                                   heroTag: null,
                                   onPressed: () =>
-                                      openFeed(_NewsList[index].link),
+                                      Navigator.push(
+                                            context, MaterialPageRoute(
+                                            builder: (context) => ReadScreen(urlNews: '${_NewsList[index].link}',)
+                                        )),
                                   label: Text('Читать'),
                                   icon: Icon(Icons.arrow_forward),
                                 ),
@@ -126,16 +128,4 @@ class _HomeScreenRSSState extends State {
     return _NewsList;
   }
 
-  Future<bool> openFeed(String url) async {
-    try {
-      await launch(
-        url,
-        enableJavaScript: true,
-      );
-      return true;
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
-  }
 }
