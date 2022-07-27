@@ -8,8 +8,6 @@ import 'package:rss_news/screens/third_screen.dart';
 import 'package:rss_news/screens/fourth_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rss_news/widget/theme_button.dart';
-
-import 'screens/home_screen.dart';
 import 'widget/appbar_icon.dart';
 
 void main() {
