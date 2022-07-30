@@ -22,9 +22,6 @@ class _HomeScreenRSSState extends State {
   
    @override
   Widget build(BuildContext context) {
-    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
-        ? 'DarkTheme'
-        : 'LightTheme';
     final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -37,7 +34,8 @@ class _HomeScreenRSSState extends State {
                 ? Colors.grey.shade900
                 : Colors.blue,
           centerTitle: true,
-          leading: IconButton(
+          leading: 
+          IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context),
           ),

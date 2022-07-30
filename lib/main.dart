@@ -9,7 +9,6 @@ import 'package:rss_news/screens/fourth_screen.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rss_news/widget/theme_button.dart';
 
-import 'screens/home_screen.dart';
 import 'widget/appbar_icon.dart';
 
 void main() {
@@ -46,9 +45,7 @@ class MyApp extends StatelessWidget {
       });
 }
 
-
 class MyDrawerApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,19 +53,17 @@ class MyDrawerApp extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-             child: Center(
-              child: Text("SNEWS",
-                  style: TextStyle(
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-            ),
-            )
-            ),
-            decoration: BoxDecoration(color: Colors.blue),
+              child: Center(
+                  child: Text(
+                "SNEWS",
+                style: TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              )),
+              decoration: BoxDecoration(color: Colors.blue),
             ),
             ListTile(
-              
               title: Text("Политика"),
               onTap: () {
                 Navigator.push(context,
@@ -78,6 +73,7 @@ class MyDrawerApp extends StatelessWidget {
             ListTile(
               title: Text("Экономика"),
               onTap: () {
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SecondScreenRSS()));
               },
@@ -115,6 +111,7 @@ class MyDrawerApp extends StatelessWidget {
             Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
                 ? Colors.grey.shade900
                 : Colors.blue,
+        centerTitle: true,
         title: Text("SNEWS Новости"),
         actions: [
           ChangeThemeIconWidget(),
@@ -124,21 +121,40 @@ class MyDrawerApp extends StatelessWidget {
       body: Container(
         padding:
             EdgeInsets.only(left: 10.0, top: 100, right: 10.0, bottom: 100.0),
-        child: Column(
-          children: [
+        child: Column(children: [
           Image.asset('assets/images/newspaper.png'),
           Spacer(),
-          Text( "Добро пожаловать!  SNEWS является пользовательским приложением с открытым исходным кодом ",
+          Text(
+            "Добро пожаловать!   SNEWS является пользовательским приложением с открытым исходным кодом  Так чего же мы ждем ",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
-                ? Colors.white
-                : Colors.black,),
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Provider.of<ThemeProvider>(context).themeMode ==
+                      ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
           ),
         ]),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Builder(builder: (context) {
+
+        return FloatingActionButton.extended(
+          backgroundColor: Colors.blue,
+          shape: BeveledRectangleBorder(borderRadius: BorderRadius.zero),
+          label: Text("Вперед",
+          style:TextStyle(color: Provider.of<ThemeProvider>(context).themeMode ==
+                      ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
+          ),
+          ),
+          onPressed: () =>
+              Scaffold.of(context).openDrawer(), // <-- Opens drawer.
+        );
+      }),
     );
   }
 
