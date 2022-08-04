@@ -101,7 +101,7 @@ class _HomeScreenRSSState extends State {
                                             builder: (context) => ReadScreen(urlNews: '${_NewsList[index].link}',)
                                         )),
                                   label: Text('Читать'),
-                                  icon: Icon(Icons.arrow_forward),
+                                  icon: Icon(Icons.arrow_forward)q,
                                 ),
                               ],
                             ),
@@ -122,7 +122,7 @@ class _HomeScreenRSSState extends State {
    
 
   _getHttpNews() async {
-    var response = await fetchHttpNews(Uri.parse(SECOND_URL));
+    var response = await fetchHttpNews(Uri.parse(FIRST_URL));
     var chanel = RssFeed.parse(response.body);
     chanel.items!.forEach((element) {
       _NewsList.add(element);
