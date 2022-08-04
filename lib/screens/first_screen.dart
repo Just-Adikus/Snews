@@ -101,7 +101,7 @@ class _HomeScreenRSSState extends State {
                                             builder: (context) => ReadScreen(urlNews: '${_NewsList[index].link}',)
                                         )),
                                   label: Text('Читать'),
-                                  icon: Icon(Icons.arrow_forward)q,
+                                  icon: Icon(Icons.arrow_forward),
                                 ),
                               ],
                             ),
